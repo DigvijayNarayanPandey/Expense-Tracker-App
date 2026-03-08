@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import SideMenu from "./SideMenu";
-import { UserContext } from "../../context/userContext";
+import { UserContext } from "../../context/UserContext";
 import CharAvatar from "../Cards/CharAvatar";
 
 const Navbar = ({ activeMenu }) => {
