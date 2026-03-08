@@ -53,7 +53,7 @@ const Navbar = ({ activeMenu }) => {
               <p className="text-sm font-medium text-gray-800 leading-tight">
                 {user.fullName}
               </p>
-              <p className="text-xs text-gray-400">Welcome back 👋</p>
+              <p className="text-xs text-gray-600">Welcome back 👋</p>
             </div>
             {user.profileImageUrl ? (
               <img
@@ -74,7 +74,7 @@ const Navbar = ({ activeMenu }) => {
       </div>
 
       {/* Gradient accent line */}
-      <div className="h-[2px] bg-gradient-to-r from-purple-500 via-primary to-violet-400" />
+      <div className="h-[2px] bg-gradient-to-r from-gray-500 via-primary to-gray-600" />
 
       {/* Mobile side menu */}
       {openSideMenu && (

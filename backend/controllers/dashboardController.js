@@ -2,6 +2,50 @@ const Income = require("../models/Income");
 const Expense = require("../models/Expense");
 const { isValidObjectId, Types } = require("mongoose");
 
+// Get All Transactions (Income + Expense)
+exports.getAllTransactions = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const incomeTransactions = (
+      await Income.find({ userId }).sort({ date: -1 })
+    ).map((txn) => ({
+      ...txn.toObject(),
+      type: "income",
+    }));
+
+    const expenseTransactions = (
+      await Expense.find({ userId }).sort({ date: -1 })
+    ).map((txn) => ({
+      ...txn.toObject(),
+      type: "expense",
+    }));
+
+    const allTransactions = [
+      ...incomeTransactions,
+      ...expenseTransactions,
+    ].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const totalIncome = incomeTransactions.reduce(
+      (sum, txn) => sum + txn.amount,
+      0
+    );
+    const totalExpense = expenseTransactions.reduce(
+      (sum, txn) => sum + txn.amount,
+      0
+    );
+
+    res.json({
+      transactions: allTransactions,
+      totalIncome,
+      totalExpense,
+      totalBalance: totalIncome - totalExpense,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server Error!", error });
+  }
+};
+
 //Dashboard Data
 exports.getDashboardData = async (req, res) => {
   try {
