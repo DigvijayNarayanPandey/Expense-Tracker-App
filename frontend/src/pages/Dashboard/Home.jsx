@@ -69,13 +69,13 @@ const Home = () => {
           <InfoCard
             icon={<LuHandCoins />}
             label="Total Expense"
-            value={addThousandSeparator(dashboardData?.totalExpenses || 0)}
+            value={addThousandSeparator(dashboardData?.totalExpense || 0)}
             color="bg-red-500"
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions
-            transactions={dashboardData?.recentTransations}
+            transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate("/expense")}
           />
 
@@ -86,12 +86,12 @@ const Home = () => {
           />
 
           <ExpenseTransactions
-            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
+            transactions={dashboardData?.last30DaysEpenses?.transactions || []}
             onSeeMore={() => navigate("/expense")}
           />
 
           <Last30DaysExpenses
-            data={dashboardData?.last30DaysExpenses?.transactions || []}
+            data={dashboardData?.last30DaysEpenses?.transactions || []}
           />
 
           <RecentIncomeWithChart

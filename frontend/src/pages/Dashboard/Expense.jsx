@@ -6,6 +6,8 @@ import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 import AddExpenseForm from "../../components/Expense/AddExpenseForm";
 import ExpenseList from "../../components/Expense/ExpenseList";
 import DeleteAlert from "../../components/DeleteAlert";
+import Modal from "../../components/Modal";
+import toast from "react-hot-toast";
 import axiosInstance from "../../utils/axiosInstance";
 
 const Expense = () => {

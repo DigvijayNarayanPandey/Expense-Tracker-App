@@ -20,7 +20,7 @@ const CustomLineChart = ({ data }) => {
           <p className="text-sm text-gray-600">
             Amount:{" "}
             <sapn className="text-sm font-medium text-gray-900">
-              ${payload[0].payload.amount}
+              ₹{Number(payload[0].payload.amount).toLocaleString("en-IN")}
             </sapn>
           </p>
         </div>
@@ -34,10 +34,10 @@ const CustomLineChart = ({ data }) => {
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart data={data}>
           <defs>
-            <LinearGradient id="incomeGradient" xl="0" yl="0" x2="0" y2="1">
+            <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#875cf5" stopOpacity={0.4} />
               <stop offset="95%" stopColor="#875cf5" stopOpacity={0} />
-            </LinearGradient>
+            </linearGradient>
           </defs>
 
           <CartesianGrid stroke="none" />
