@@ -21,16 +21,16 @@ export const getInitials = (name) => {
 export const addThousandSeparator = (num) => {
   if (num == null || isNaN(num)) return "";
 
-  const [integerPart, fractionalPart] = num.toString().split(".");
-  const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-  return fractionalPart
-    ? `${formattedInteger}.${fractionalPart}`
-    : formattedInteger;
+  return Number(num).toLocaleString("en-IN");
 };
 
 export const prepareExpenseBarChartData = (data = []) => {
-  const chartData = data.map((item) => ({
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.date) - new Date(b.date),
+  );
+
+  const chartData = sortedData.map((item) => ({
+    month: moment(item?.date).format("Do MMM"),
     category: item?.category,
     amount: item?.amount,
   }));
@@ -62,4 +62,6 @@ export const prepareExpenseLineChartData = (data = []) => {
     amount: item?.amount,
     category: item?.category,
   }));
+
+  return chartData;
 };

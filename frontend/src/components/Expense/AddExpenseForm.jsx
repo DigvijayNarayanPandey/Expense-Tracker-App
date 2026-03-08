@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Input from "../Input/Input";
+import Input from "../Inputs/Input";
 import EmojiPickerPopup from "../EmojiPickerPopup";
 
 const AddExpenseForm = ({ onAddExpense }) => {
@@ -32,7 +32,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
                 value={income.amount}
                 onChange={({ target }) => handleChange("amount", target.value)}
                 label="Amount"
-                palceholder=""
+                palceholder="0.00"
                 type="number"
             />
 

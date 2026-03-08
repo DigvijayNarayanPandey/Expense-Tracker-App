@@ -5,6 +5,7 @@ import {
   LuTrendingDown,
   LuTrash2,
 } from "react-icons/lu";
+import { addThousandSeparator } from "../../utils/helper";
 
 const TransactionInfoCard = ({
   title,
@@ -45,7 +46,7 @@ const TransactionInfoCard = ({
             className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}
           >
             <h6 className="text-xs font-medium">
-              {type === "income" ? "+" : "-"} ${amount}
+              {type === "income" ? "+" : "-"} ₹{addThousandSeparator(amount)}
             </h6>
             {type === "income" ? <LuTrendingUp /> : <LuTrendingDown />}
           </div>

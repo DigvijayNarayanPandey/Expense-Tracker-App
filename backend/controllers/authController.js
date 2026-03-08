@@ -68,8 +68,13 @@ exports.loginUser = async (req, res) => {
   }
   try {
     const user = await User.findOne({ email });
-    if (!user || !(await user.comparePassword(password))) {
-      return res.status(400).json({ message: "invalid credentials" });
+    if (!user) {
+      return res.status(401).json({ message: "Account doesn't exist. Please sign up first." });
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials. Please check your password." });
     }
 
     res.status(200).json({
@@ -99,6 +104,56 @@ exports.getUserInfo = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error fetching user info",
+      error: error.message,
+    });
+  }
+};
+
+// Update Profile Image
+exports.updateProfileImage = async (req, res) => {
+  try {
+    const { profileImageUrl } = req.body;
+
+    if (!profileImageUrl) {
+      return res.status(400).json({ message: "Profile image URL is required" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { profileImageUrl },
+      { new: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error updating profile image",
+      error: error.message,
+    });
+  }
+};
+
+// Delete Profile Image
+exports.deleteProfileImage = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { profileImageUrl: null },
+      { new: true }
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found!" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error deleting profile image",
       error: error.message,
     });
   }

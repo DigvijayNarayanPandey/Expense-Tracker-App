@@ -45,7 +45,7 @@ const CustomPieChart = ({
               dy={-25}
               textAnchor="middle"
               fill="#666"
-              fontSize="144px"
+              fontSize="14px"
             >
               {label}
             </text>
