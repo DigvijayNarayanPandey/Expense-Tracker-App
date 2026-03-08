@@ -20,9 +20,9 @@ const CustomBarChart = ({ data }) => {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white shadow-md rounded-lg border border-gray-300">
+        <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
           <p className="text-xs font-semibold text-purple-800 mb-1">
-            {payload[0].payload.category}
+            {payload[0].payload.category || payload[0].payload.source}
           </p>
           <p className="text-sm text-gray-600">
             Amount:{" "}
@@ -47,7 +47,7 @@ const CustomBarChart = ({ data }) => {
             stroke="none"
           />
           <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip content={<CustomTooltip />} cursor={false} />
           <Bar
             dataKey="amount"
             fill="#FF8042"
