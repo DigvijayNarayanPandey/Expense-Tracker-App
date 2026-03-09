@@ -3,6 +3,7 @@ import { useUserAuth } from "../../hooks/useUserAuth";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
+import InfoCard from "../../components/Cards/InfoCard";
 import TransactionInfoCard from "../../components/Cards/TransactionInfoCard";
 import moment from "moment";
 import { addThousandSeparator } from "../../utils/helper";
@@ -66,50 +67,29 @@ const Transactions = () => {
       <div className="my-5 mx-auto">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div className="card flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center text-xl text-white bg-green-500 rounded-full">
-              <LuArrowDownLeft />
-            </div>
-            <div>
-              <p className="text-xs text-gray-600">Total Income</p>
-              <h5 className="text-lg font-semibold text-gray-700">
-                ₹{addThousandSeparator(transactionData?.totalIncome || 0)}
-              </h5>
-              <p className="text-xs text-gray-700">
-                {incomeCount} transactions
-              </p>
-            </div>
-          </div>
+          <InfoCard
+            icon={<LuArrowDownLeft />}
+            label="Total Income"
+            value={addThousandSeparator(transactionData?.totalIncome || 0)}
+            color="bg-green-500"
+            details={`${incomeCount} transactions`}
+          />
 
-          <div className="card flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center text-xl text-white bg-red-500 rounded-full">
-              <LuArrowUpRight />
-            </div>
-            <div>
-              <p className="text-xs text-gray-600">Total Expense</p>
-              <h5 className="text-lg font-semibold text-gray-700">
-                ₹{addThousandSeparator(transactionData?.totalExpense || 0)}
-              </h5>
-              <p className="text-xs text-gray-600">
-                {expenseCount} transactions
-              </p>
-            </div>
-          </div>
+          <InfoCard
+            icon={<LuArrowUpRight />}
+            label="Total Expense"
+            value={addThousandSeparator(transactionData?.totalExpense || 0)}
+            color="bg-red-500"
+            details={`${expenseCount} transactions`}
+          />
 
-          <div className="card flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center text-xl text-white bg-orange-500 rounded-full">
-              <LuWalletMinimal />
-            </div>
-            <div>
-              <p className="text-xs text-gray-600">Net Balance</p>
-              <h5 className="text-lg font-semibold text-gray-700">
-                ₹{addThousandSeparator(transactionData?.totalBalance || 0)}
-              </h5>
-              <p className="text-xs text-gray-700">
-                {transactionData?.transactions?.length || 0} total
-              </p>
-            </div>
-          </div>
+          <InfoCard
+            icon={<LuWalletMinimal />}
+            label="Net Balance"
+            value={addThousandSeparator(transactionData?.totalBalance || 0)}
+            color="bg-orange-500"
+            details={`${transactionData?.transactions?.length || 0} total`}
+          />
         </div>
 
         {/* Filters & Search */}

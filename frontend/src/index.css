@@ -16,6 +16,24 @@
     background-color: #fcfbfc;
     overflow-x: hidden;
   }
+
+  *, *::before, *::after {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .recharts-responsive-container,
+  .recharts-wrapper,
+  .recharts-surface,
+  svg,
+  .card {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  *:focus,
+  *:focus-visible {
+    outline: none;
+  }
 }
 
 .input-box {
