@@ -22,12 +22,12 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
           )}
         </div>
 
-        <p className="text-sm font-medium text-gray-700">{icon ? "Change\nIcon" : "Pick\nIcon"}</p>
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-300">{icon ? "Change\nIcon" : "Pick\nIcon"}</p>
       </div>
 
       {isOpen && (
         <div className="relative">
-          <button className="w-7 h-7 flex items-center justify-center bg-white border border-gray-200 rounded-full absolute -top-2 -right-2 z-10 cursor-pointer" onClick={() => setIsOpen(false)}>
+          <button className="w-7 h-7 flex items-center justify-center bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-gray-200 dark:border-slate-700 rounded-full absolute -top-2 -right-2 z-10 cursor-pointer" onClick={() => setIsOpen(false)}>
             <LuX />
           </button>
           <EmojiPicker

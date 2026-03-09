@@ -62,7 +62,7 @@ const SideMenu = ({ activeMenu }) => {
   };
 
   return (
-    <div className="w-64 h-[calc(100vh-56px)] bg-white border-r border-gray-200/50 p-5 sticky top-[56px] z-20">
+    <div className="w-64 h-[calc(100vh-56px)] bg-white dark:bg-slate-900 border-r border-gray-200/50 dark:border-slate-800 p-5 sticky top-[56px] z-20 transition-colors duration-200">
       <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
         <div className="relative group cursor-pointer">
           {user?.profileImageUrl ? (
@@ -107,7 +107,7 @@ const SideMenu = ({ activeMenu }) => {
           />
         </div>
 
-        <h5 className="text-gray-950 font-medium leading-6">
+        <h5 className="text-gray-950 dark:text-slate-100 font-medium leading-6">
           {user?.fullName || ""}
         </h5>
       </div>
@@ -116,7 +116,7 @@ const SideMenu = ({ activeMenu }) => {
         <button
           key={`menu_${index}`}
           className={`w-full flex items-center gap-4 text-[15px] ${
-            activeMenu == item.label ? "text-white bg-primary" : ""
+            activeMenu == item.label ? "text-white bg-primary" : "hover:bg-gray-50 dark:hover:bg-slate-800"
           } py-3 px-6 rounded-lg mb-3`}
           onClick={() => handleClick(item.path)}
         >
