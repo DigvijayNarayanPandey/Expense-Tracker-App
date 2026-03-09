@@ -95,23 +95,23 @@ const Transactions = () => {
         {/* Filters & Search */}
         <div className="card">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-            <h5 className="text-lg font-medium">All Transactions</h5>
+            <h5 className="text-lg font-medium dark:text-white">All Transactions</h5>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full md:w-auto">
               {/* Search */}
-              <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-2 w-full sm:w-auto">
-                <LuSearch className="text-gray-400" />
+              <div className="flex items-center gap-2 bg-gray-100 dark:bg-slate-800 rounded-lg px-3 py-2 w-full sm:w-auto transition-colors">
+                <LuSearch className="text-gray-400 dark:text-slate-500" />
                 <input
                   type="text"
                   placeholder="Search transactions..."
-                  className="bg-transparent text-sm outline-none w-full sm:w-48"
+                  className="bg-transparent text-sm text-black dark:text-white outline-none w-full sm:w-48 placeholder:text-gray-400 dark:placeholder:text-slate-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
               {/* Filter Tabs */}
-              <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+              <div className="flex items-center gap-1 bg-gray-100 dark:bg-slate-800 rounded-lg p-1 transition-colors">
                 {[
                   { key: "all", label: "All" },
                   { key: "income", label: "Income" },
@@ -122,8 +122,8 @@ const Transactions = () => {
                     onClick={() => setFilter(tab.key)}
                     className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${
                       filter === tab.key
-                        ? "bg-white text-primary shadow-sm"
-                        : "text-gray-500 hover:text-gray-700"
+                        ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm dark:shadow-none"
+                        : "text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
                     }`}
                   >
                     {tab.label}

@@ -44,7 +44,7 @@ const CustomPieChart = ({
               y="50%"
               dy={-25}
               textAnchor="middle"
-              fill="#666"
+              className="fill-gray-600 dark:fill-slate-400"
               fontSize="14px"
             >
               {label}
@@ -54,7 +54,7 @@ const CustomPieChart = ({
               y="50%"
               dy={8}
               textAnchor="middle"
-              fill="#333"
+              className="fill-gray-900 dark:fill-slate-100"
               fontSize="24px"
               fontWeight="semi-bold"
             >

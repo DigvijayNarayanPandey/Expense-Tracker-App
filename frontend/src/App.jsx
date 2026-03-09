@@ -12,12 +12,14 @@ import Income from "./pages/Dashboard/Income";
 import Expense from "./pages/Dashboard/Expense";
 import Transactions from "./pages/Dashboard/Transactions";
 import UserProvider from "./context/UserContext";
+import ThemeProvider from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <UserProvider>
-      <div>
+    <ThemeProvider>
+      <UserProvider>
+        <div>
         <Router>
           <Routes>
             <Route path="/" element={<Root />} />
@@ -33,13 +35,14 @@ const App = () => {
 
       <Toaster
         toastOptions={{
-          className: "",
+          className: "dark:bg-slate-800 dark:text-white",
           style: {
             fontSize: "13px",
           },
         }}
       />
-    </UserProvider>
+      </UserProvider>
+    </ThemeProvider>
   );
 };
 
