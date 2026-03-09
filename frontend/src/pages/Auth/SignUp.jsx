@@ -91,6 +91,11 @@ const SignUp = () => {
               label="Full Name"
               placeholder="John"
               type="text"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSignUp(e);
+                }
+              }}
             />
             <Input
               value={email}
@@ -98,6 +103,11 @@ const SignUp = () => {
               label="Email Address"
               placeholder="john@example.com"
               type="text"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSignUp(e);
+                }
+              }}
             />
             <div className="md:col-span-2">
               <Input
@@ -106,6 +116,11 @@ const SignUp = () => {
                 label="Password"
                 placeholder="Min 8 Characters"
                 type="password"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSignUp(e);
+                  }
+                }}
               />
             </div>
           </div>

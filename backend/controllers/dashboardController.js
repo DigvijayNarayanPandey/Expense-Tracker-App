@@ -68,14 +68,14 @@ exports.getDashboardData = async (req, res) => {
       { $group: { _id: null, total: { $sum: "$amount" } } },
     ]);
 
-    // Get Income Transactions in the last 60 days
-    const last60DaysTransactions = await Income.find({
+    // Get Income Transactions in the last 30 days
+    const last30DaysTransactions = await Income.find({
       userId,
-      date: { $gte: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000) },
+      date: { $gte: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) },
     }).sort({ date: -1 });
 
-    // Get total Income for last 60 days
-    const incomeLast60Days = last60DaysTransactions.reduce(
+    // Get total Income for last 30 days
+    const incomeLast30Days = last30DaysTransactions.reduce(
       (sum, transaction) => sum + transaction.amount,
       0
     );
@@ -119,8 +119,8 @@ exports.getDashboardData = async (req, res) => {
         transactions: last30DaysExpenseTransactions,
       },
       last60DaysIncome: {
-        total: incomeLast60Days,
-        transactions: last60DaysTransactions,
+        total: incomeLast30Days,
+        transactions: last30DaysTransactions,
       },
       recentTransactions: lastTransactions,
     });

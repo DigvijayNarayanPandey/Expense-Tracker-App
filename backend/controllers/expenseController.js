@@ -11,7 +11,7 @@ exports.addExpense = async (req, res) => {
     const { icon, category, amount, date } = req.body;
 
     // Validation: Check for missing fields
-    if (!category || !amount || !date) {
+    if (!category || !amount || !date || !icon) {
       return res.status(400).json({
         message: "All fields are required!",
       });

@@ -62,12 +62,19 @@ const Expense = () => {
       return;
     }
 
+    if (new Date(date) > new Date()) {
+      toast.error("Future date is not allowed.");
+      return;
+    }
+
+    const finalIcon = icon ? icon : "🍔";
+
     try {
       await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, {
         category,
         amount,
         date,
-        icon,
+        icon: finalIcon,
       });
       setOpenAddExpenseModal(false);
       toast.success("Expense added successfully");
@@ -98,6 +105,11 @@ const Expense = () => {
 
   // Handle download expense details
   const handleDownloadExpenseDetails = async () => {
+    if (expenseData.length === 0) {
+      toast.error("No expense details to download.");
+      return;
+    }
+
     try {
       const response = await axiosInstance.get(
         API_PATHS.EXPENSE.DOWNLOAD_EXPENSE,

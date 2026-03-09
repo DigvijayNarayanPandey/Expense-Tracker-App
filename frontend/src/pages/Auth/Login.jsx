@@ -69,6 +69,11 @@ const Login = () => {
             label="Email Address"
             placeholder="john@example.com"
             type="text"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(e);
+              }
+            }}
           />
           <Input
             value={password}
@@ -76,6 +81,11 @@ const Login = () => {
             label="Password"
             placeholder="Min 8 Characters"
             type="password"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleLogin(e);
+              }
+            }}
           />
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 

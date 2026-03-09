@@ -29,7 +29,14 @@ const ExpenseOverview = ({ transactions, onExpenseIncome }) => {
         </button>
       </div>
       <div className="mt-10">
-        <CustomLineChart data={chartData} />
+        {chartData.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[300px] mt-6">
+            <span className="text-sm text-gray-600 dark:text-slate-400">Total expense</span>
+            <span className="text-[24px] text-gray-900 dark:text-slate-100 font-semibold mt-1">₹0</span>
+          </div>
+        ) : (
+          <CustomLineChart data={chartData} />
+        )}
       </div>
     </div>
   );

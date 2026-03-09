@@ -42,6 +42,7 @@ const AddExpenseForm = ({ onAddExpense }) => {
                 label="Date"
                 palceholder=""
                 type="date"
+                max={new Date().toISOString().split("T")[0]}
             />
 
             <div className='flex justify-end mt-6'>

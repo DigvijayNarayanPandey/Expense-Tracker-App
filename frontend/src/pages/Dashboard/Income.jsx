@@ -58,14 +58,22 @@ const Income = () => {
 
     if (!date) {
       toast.error("Date is required");
+      return;
     }
+
+    if (new Date(date) > new Date()) {
+      toast.error("Future date is not allowed.");
+      return;
+    }
+
+    const finalIcon = icon ? icon : "💰";
 
     try {
       await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
         source,
         amount,
         date,
-        icon,
+        icon: finalIcon,
       });
       setOpenAddIncomeModal(false);
       toast.success("Income added successfully");
@@ -96,6 +104,11 @@ const Income = () => {
 
   // Handle download Income details
   const handleDownloadIncome = async () => {
+    if (incomeData.length === 0) {
+      toast.error("No income details to download.");
+      return;
+    }
+
     try {
       const response = await axiosInstance.get(
         API_PATHS.INCOME.DOWNLOAD_INCOME,

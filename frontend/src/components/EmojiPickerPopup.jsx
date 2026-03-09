@@ -12,11 +12,11 @@ const EmojiPickerPopup = ({ icon, onSelect }) => {
       >
         <div className="w-12 h-12 flex items-center justify-center text-2xl bg-primary text-white rounded-lg">
           {icon ? (
-            <img
-              src={icon}
-              alt="Icon"
-              className="w-12 h-12"
-            />
+            icon.length <= 10 ? (
+              <span className="text-3xl">{icon}</span>
+            ) : (
+              <img src={icon} alt="Icon" className="w-12 h-12" />
+            )
           ) : (
             <LuImage />
           )}
