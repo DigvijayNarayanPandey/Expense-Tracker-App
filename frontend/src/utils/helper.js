@@ -1,4 +1,34 @@
-import moment from "moment";
+export const getOrdinalSuffix = (i) => {
+  var j = i % 10,
+    k = i % 100;
+  if (j == 1 && k != 11) {
+    return i + "st";
+  }
+  if (j == 2 && k != 12) {
+    return i + "nd";
+  }
+  if (j == 3 && k != 13) {
+    return i + "rd";
+  }
+  return i + "th";
+};
+
+export const formatDateDoMMM = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const day = getOrdinalSuffix(date.getDate());
+  const month = date.toLocaleString("en-US", { month: "short" });
+  return `${day} ${month}`;
+};
+
+export const formatDateDoMMMYYYY = (dateString) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const day = getOrdinalSuffix(date.getDate());
+  const month = date.toLocaleString("en-US", { month: "short" });
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+};
 
 export const validateEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,7 +60,7 @@ export const prepareExpenseBarChartData = (data = []) => {
   );
 
   const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
+    month: formatDateDoMMM(item?.date),
     category: item?.category,
     amount: item?.amount,
   }));
@@ -44,7 +74,7 @@ export const prepareIncomeBarChartData = (data = []) => {
   );
 
   const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
+    month: formatDateDoMMM(item?.date),
     amount: item?.amount,
     source: item?.source,
   }));
@@ -58,7 +88,7 @@ export const prepareExpenseLineChartData = (data = []) => {
   );
 
   const chartData = sortedData.map((item) => ({
-    month: moment(item?.date).format("Do MMM"),
+    month: formatDateDoMMM(item?.date),
     amount: item?.amount,
     category: item?.category,
   }));

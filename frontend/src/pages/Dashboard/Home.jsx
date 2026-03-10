@@ -15,6 +15,7 @@ import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions"
 import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
 import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
+import { InfoCardSkeleton } from "../../components/Skeletons/Skeletons";
 
 const Home = () => {
   useUserAuth();
@@ -45,38 +46,47 @@ const Home = () => {
 
   useEffect(() => {
     fetchDashboardData();
-    return () => {};
+    return () => { };
   }, []);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <InfoCard
-            icon={<IoMdCard />}
-            label="Total Balance"
-            value={addThousandSeparator(dashboardData?.totalBalance || 0)}
-            color="bg-primary"
-          />
+        {loading || !dashboardData ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <InfoCardSkeleton />
+            <InfoCardSkeleton />
+            <InfoCardSkeleton />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <InfoCard
+              icon={<IoMdCard />}
+              label="Total Balance"
+              value={addThousandSeparator(dashboardData?.totalBalance || 0)}
+              color="bg-primary"
+            />
 
-          <InfoCard
-            icon={<LuWalletMinimal />}
-            label="Total Income"
-            value={addThousandSeparator(dashboardData?.totalIncome || 0)}
-            color="bg-orange-500"
-          />
+            <InfoCard
+              icon={<LuWalletMinimal />}
+              label="Total Income"
+              value={addThousandSeparator(dashboardData?.totalIncome || 0)}
+              color="bg-orange-500"
+            />
 
-          <InfoCard
-            icon={<LuHandCoins />}
-            label="Total Expense"
-            value={addThousandSeparator(dashboardData?.totalExpense || 0)}
-            color="bg-red-500"
-          />
-        </div>
+            <InfoCard
+              icon={<LuHandCoins />}
+              label="Total Expense"
+              value={addThousandSeparator(dashboardData?.totalExpense || 0)}
+              color="bg-red-500"
+            />
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions
             transactions={dashboardData?.recentTransactions}
             onSeeMore={() => navigate("/transactions")}
+            loading={loading || !dashboardData}
           />
 
           <FinanceOverview
@@ -88,6 +98,7 @@ const Home = () => {
           <ExpenseTransactions
             transactions={dashboardData?.last30DaysEpenses?.transactions || []}
             onSeeMore={() => navigate("/expense")}
+            loading={loading || !dashboardData}
           />
 
           <Last30DaysExpenses
@@ -104,6 +115,7 @@ const Home = () => {
           <RecentIncome
             transactions={dashboardData?.last60DaysIncome?.transactions || []}
             onSeeMore={() => navigate("/income")}
+            loading={loading || !dashboardData}
           />
         </div>
       </div>

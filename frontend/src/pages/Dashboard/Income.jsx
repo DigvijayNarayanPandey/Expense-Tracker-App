@@ -135,7 +135,7 @@ const Income = () => {
   useEffect(() => {
     fetchIncomeDetails();
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -155,6 +155,7 @@ const Income = () => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
             onDownload={handleDownloadIncome}
+            loading={loading}
           />
         </div>
 

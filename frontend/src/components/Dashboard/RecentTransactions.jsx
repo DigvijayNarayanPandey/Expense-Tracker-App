@@ -1,9 +1,10 @@
 import React from "react";
 import { LuArrowRight } from "react-icons/lu";
-import moment from 'moment'
+import { formatDateDoMMMYYYY } from "../../utils/helper";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
+import { TransactionSkeleton } from "../Skeletons/Skeletons";
 
-const RecentTransactions = ({ transactions, onSeeMore }) => {
+const RecentTransactions = ({ transactions, onSeeMore, loading }) => {
   return (
     <div className="card">
       <div className="flex items-center justify-between ">
@@ -13,17 +14,21 @@ const RecentTransactions = ({ transactions, onSeeMore }) => {
         </button>
       </div>
       <div className="mt-6">
-        {transactions?.slice(0, 5)?.map((item) => (
-          <TransactionInfoCard
-            key={item._id}
-            title={item.type == "expense" ? item.category : item.source}
-            icon={item.icon}
-            date={moment(item.date).format("Do MMM YYYY")}
-            amount={item.amount}
-            type={item.type}
-            hideDeleteBtn
-          />
-        ))}
+        {loading ? (
+          [...Array(5)].map((_, index) => <TransactionSkeleton key={index} />)
+        ) : (
+          transactions?.slice(0, 5)?.map((item) => (
+            <TransactionInfoCard
+              key={item._id}
+              title={item.type === "income" ? item.source : item.category}
+              icon={item.icon}
+              date={formatDateDoMMMYYYY(item.date)}
+              amount={item.amount}
+              type={item.type}
+              hideDeleteBtn
+            />
+          ))
+        )}
       </div>
     </div>
   );

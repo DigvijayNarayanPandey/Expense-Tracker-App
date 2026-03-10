@@ -1,9 +1,10 @@
 import React from "react";
 import { LuDownload } from "react-icons/lu";
+import { formatDateDoMMMYYYY } from "../../utils/helper";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
-import moment from "moment";
+import { TransactionSkeleton } from "../Skeletons/Skeletons";
 
-const IncomeList = ({ transaction, onDelete, onDownload }) => {
+const IncomeList = ({ transaction, onDelete, onDownload, loading }) => {
   return (
     <div className="">
       <div className="flex items-center justify-between">
@@ -14,18 +15,22 @@ const IncomeList = ({ transaction, onDelete, onDownload }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {transaction?.map((income) => (
-          <TransactionInfoCard
-            key={income._id}
-            title={income.source}
-            icon={income.icon}
-            date={moment(income.date).format("Do MMM YYYY")}
-            amount={income.amount}
-            type="income"
-            onDelete={() => onDelete(income._id)}
-          />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        {loading ? (
+          [...Array(6)].map((_, index) => <TransactionSkeleton key={index} />)
+        ) : (
+          transaction?.map((income, index) => (
+            <TransactionInfoCard
+              key={index}
+              title={income.source}
+              icon={income.icon}
+              date={formatDateDoMMMYYYY(income.date)}
+              amount={income.amount}
+              type="income"
+              onDelete={() => onDelete(income._id)}
+            />
+          ))
+        )}
       </div>
     </div>
   );

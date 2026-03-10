@@ -1,9 +1,10 @@
 import React from "react";
+import { formatDateDoMMMYYYY } from "../../utils/helper";
 import { LuArrowRight } from "react-icons/lu";
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
-import moment from "moment";
+import { TransactionSkeleton } from "../Skeletons/Skeletons";
 
-const ExpenseTransactions = ({ transactions, onSeeMore }) => {
+const ExpenseTransactions = ({ transactions, onSeeMore, loading }) => {
   return (
     <div className="card">
       <div className="flex items-center justify-between">
@@ -15,17 +16,21 @@ const ExpenseTransactions = ({ transactions, onSeeMore }) => {
       </div>
 
       <div className="mt-6">
-        {transactions?.slice(0, 4)?.map((expense) => (
-          <TransactionInfoCard
-            key={expense._id}
-            title={expense.category}
-            icon={expense.icon}
-            date={moment(expense.date).format("Do MMM YYYY")}
-            amount={expense.amount}
-            type="expense"
-            hideDeleteBtn
-          />
-        ))}
+        {loading ? (
+          [...Array(4)].map((_, index) => <TransactionSkeleton key={index} />)
+        ) : (
+          transactions?.slice(0, 4)?.map((expense) => (
+            <TransactionInfoCard
+              key={expense._id}
+              title={expense.category}
+              icon={expense.icon}
+              date={formatDateDoMMMYYYY(expense.date)}
+              amount={expense.amount}
+              type="expense"
+              hideDeleteBtn
+            />
+          ))
+        )}
       </div>
     </div>
   );

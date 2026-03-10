@@ -42,7 +42,7 @@ exports.getAllTransactions = async (req, res) => {
       totalBalance: totalIncome - totalExpense,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server Error!", error });
+    res.status(500).json({ message: "Server Error!", error: error.message });
   }
 };
 
@@ -125,6 +125,6 @@ exports.getDashboardData = async (req, res) => {
       recentTransactions: lastTransactions,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server Error!", error });
+    res.status(500).json({ message: "Server Error!", error: error.message });
   }
 };

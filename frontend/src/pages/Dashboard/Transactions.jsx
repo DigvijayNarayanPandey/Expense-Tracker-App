@@ -5,14 +5,14 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import InfoCard from "../../components/Cards/InfoCard";
 import TransactionInfoCard from "../../components/Cards/TransactionInfoCard";
-import moment from "moment";
-import { addThousandSeparator } from "../../utils/helper";
+import { addThousandSeparator, formatDateDoMMMYYYY } from "../../utils/helper";
 import {
   LuArrowDownLeft,
   LuArrowUpRight,
   LuWalletMinimal,
   LuSearch,
 } from "react-icons/lu";
+import { InfoCardSkeleton, TransactionSkeleton } from "../../components/Skeletons/Skeletons";
 
 const Transactions = () => {
   useUserAuth();
@@ -43,54 +43,62 @@ const Transactions = () => {
 
   useEffect(() => {
     fetchAllTransactions();
-    return () => {};
+    return () => { };
   }, []);
 
-  const filteredTransactions = transactionData?.transactions?.filter((txn) => {
-    const matchesFilter = filter === "all" || txn.type === filter;
-    const label = txn.type === "income" ? txn.source : txn.category;
-    const matchesSearch = label
-      ?.toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
+  const { filteredTransactions, incomeCount, expenseCount } = React.useMemo(() => {
+    const transactions = transactionData?.transactions || [];
 
-  const incomeCount =
-    transactionData?.transactions?.filter((t) => t.type === "income").length ||
-    0;
-  const expenseCount =
-    transactionData?.transactions?.filter((t) => t.type === "expense").length ||
-    0;
+    const filtered = transactions.filter((txn) => {
+      const matchesFilter = filter === "all" || txn.type === filter;
+      const label = txn.type === "income" ? txn.source : txn.category;
+      const matchesSearch = label?.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesFilter && matchesSearch;
+    });
+
+    const income = transactions.filter((t) => t.type === "income").length;
+    const expense = transactions.filter((t) => t.type === "expense").length;
+
+    return { filteredTransactions: filtered, incomeCount: income, expenseCount: expense };
+  }, [transactionData, filter, searchQuery]);
 
   return (
     <DashboardLayout activeMenu="Transactions">
       <div className="my-5 mx-auto">
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <InfoCard
-            icon={<LuArrowDownLeft />}
-            label="Total Income"
-            value={addThousandSeparator(transactionData?.totalIncome || 0)}
-            color="bg-green-500"
-            details={`${incomeCount} transactions`}
-          />
+        {loading || !transactionData ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <InfoCardSkeleton />
+            <InfoCardSkeleton />
+            <InfoCardSkeleton />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <InfoCard
+              icon={<LuArrowDownLeft />}
+              label="Total Income"
+              value={addThousandSeparator(transactionData?.totalIncome || 0)}
+              color="bg-green-500"
+              details={`${incomeCount} transactions`}
+            />
 
-          <InfoCard
-            icon={<LuArrowUpRight />}
-            label="Total Expense"
-            value={addThousandSeparator(transactionData?.totalExpense || 0)}
-            color="bg-red-500"
-            details={`${expenseCount} transactions`}
-          />
+            <InfoCard
+              icon={<LuArrowUpRight />}
+              label="Total Expense"
+              value={addThousandSeparator(transactionData?.totalExpense || 0)}
+              color="bg-red-500"
+              details={`${expenseCount} transactions`}
+            />
 
-          <InfoCard
-            icon={<LuWalletMinimal />}
-            label="Net Balance"
-            value={addThousandSeparator(transactionData?.totalBalance || 0)}
-            color="bg-orange-500"
-            details={`${transactionData?.transactions?.length || 0} total`}
-          />
-        </div>
+            <InfoCard
+              icon={<LuWalletMinimal />}
+              label="Net Balance"
+              value={addThousandSeparator(transactionData?.totalBalance || 0)}
+              color="bg-orange-500"
+              details={`${transactionData?.transactions?.length || 0} total`}
+            />
+          </div>
+        )}
 
         {/* Filters & Search */}
         <div className="card">
@@ -120,11 +128,10 @@ const Transactions = () => {
                   <button
                     key={tab.key}
                     onClick={() => setFilter(tab.key)}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${
-                      filter === tab.key
-                        ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm dark:shadow-none"
-                        : "text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
-                    }`}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${filter === tab.key
+                      ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm dark:shadow-none"
+                      : "text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
+                      }`}
                   >
                     {tab.label}
                   </button>
@@ -135,8 +142,10 @@ const Transactions = () => {
 
           {/* Transactions List */}
           {loading ? (
-            <div className="text-center py-10 text-gray-400 text-sm">
-              Loading transactions...
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+              {[...Array(6)].map((_, index) => (
+                <TransactionSkeleton key={index} />
+              ))}
             </div>
           ) : filteredTransactions?.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
@@ -145,7 +154,7 @@ const Transactions = () => {
                   key={txn._id}
                   title={txn.type === "income" ? txn.source : txn.category}
                   icon={txn.icon}
-                  date={moment(txn.date).format("Do MMM YYYY")}
+                  date={formatDateDoMMMYYYY(txn.date)}
                   amount={txn.amount}
                   type={txn.type}
                   hideDeleteBtn

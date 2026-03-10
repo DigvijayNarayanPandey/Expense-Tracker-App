@@ -136,7 +136,7 @@ const Expense = () => {
   useEffect(() => {
     fetchExpenseDetails();
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
@@ -156,6 +156,7 @@ const Expense = () => {
               setOpenDeleteAlert({ show: true, data: id });
             }}
             onDownload={handleDownloadExpenseDetails}
+            loading={loading}
           />
         </div>
 

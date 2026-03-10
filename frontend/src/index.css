@@ -93,3 +93,8 @@
     transform: translateY(-10px);
   }
 } */
+
+.EmojiPickerReact,
+aside.EmojiPickerReact {
+  max-width: 100% !important;
+}

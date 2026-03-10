@@ -18,6 +18,11 @@ exports.registerUser = async (req, res) => {
     });
   }
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
+  }
+
   if (password.length < 6) {
     return res
       .status(400)
@@ -66,6 +71,12 @@ exports.loginUser = async (req, res) => {
       message: "All fields are required",
     });
   }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ message: "Invalid email format" });
+  }
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -77,9 +88,12 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials. Please check your password." });
     }
 
+    const userObj = user.toObject();
+    delete userObj.password;
+
     res.status(200).json({
       id: user._id,
-      user,
+      user: userObj,
       token: generateToken(user._id),
     });
   } catch (error) {
