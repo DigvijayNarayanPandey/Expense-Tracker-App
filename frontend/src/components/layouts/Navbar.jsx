@@ -30,7 +30,7 @@ const Navbar = ({ activeMenu }) => {
           </button>
 
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-md shadow-purple-300/40 dark:shadow-none">
+            <div className="w-9 h-9 bg-emerald-700 rounded-xl flex items-center justify-center shadow-md shadow-emerald-300/40 dark:shadow-none">
               <span className="text-white text-lg font-bold">₹</span>
             </div>
             <h2 className="text-lg font-semibold text-gray-800 dark:text-slate-100 tracking-tight">

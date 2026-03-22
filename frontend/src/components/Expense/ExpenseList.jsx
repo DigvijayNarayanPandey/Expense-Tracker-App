@@ -18,7 +18,7 @@ const ExpenseList = ({ transactions, onDelete, onDownload, loading }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         {loading ? (
           [...Array(6)].map((_, index) => <TransactionSkeleton key={index} />)
-        ) : (
+        ) : transactions?.length > 0 ? (
           transactions?.map((expense, index) => (
             <TransactionInfoCard
               key={index}
@@ -30,6 +30,10 @@ const ExpenseList = ({ transactions, onDelete, onDownload, loading }) => {
               onDelete={() => onDelete(expense._id)}
             />
           ))
+        ) : (
+          <div className="text-center py-10 text-gray-400 text-sm col-span-full">
+            No Expense found.
+          </div>
         )}
       </div>
     </div>

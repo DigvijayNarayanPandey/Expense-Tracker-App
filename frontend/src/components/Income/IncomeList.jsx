@@ -6,9 +6,9 @@ import { TransactionSkeleton } from "../Skeletons/Skeletons";
 
 const IncomeList = ({ transaction, onDelete, onDownload, loading }) => {
   return (
-    <div className="">
+    <div className="card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">Income Source</h5>
+        <h5 className="text-lg">All Incomes</h5>
         <button className="card-btn" onClick={onDownload}>
           <LuDownload className="text-base" />
           Download
@@ -18,7 +18,7 @@ const IncomeList = ({ transaction, onDelete, onDownload, loading }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
         {loading ? (
           [...Array(6)].map((_, index) => <TransactionSkeleton key={index} />)
-        ) : (
+        ) : transaction?.length > 0 ? (
           transaction?.map((income, index) => (
             <TransactionInfoCard
               key={index}
@@ -30,6 +30,10 @@ const IncomeList = ({ transaction, onDelete, onDownload, loading }) => {
               onDelete={() => onDelete(income._id)}
             />
           ))
+        ) : (
+          <div className="text-center py-10 text-gray-400 text-sm col-span-full">
+            No Income found.
+          </div>
         )}
       </div>
     </div>

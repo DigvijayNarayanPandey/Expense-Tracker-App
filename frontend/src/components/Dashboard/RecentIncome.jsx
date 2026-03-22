@@ -17,7 +17,7 @@ const RecentIncome = ({ transactions, onSeeMore, loading }) => {
       <div className="mt-6">
         {loading ? (
           [...Array(5)].map((_, index) => <TransactionSkeleton key={index} />)
-        ) : (
+        ) : transactions?.length > 0 ? (
           transactions?.slice(0, 5)?.map((item) => (
             <TransactionInfoCard
               key={item._id}
@@ -29,6 +29,10 @@ const RecentIncome = ({ transactions, onSeeMore, loading }) => {
               hideDeleteBtn
             />
           ))
+        ) : (
+          <div className="text-center py-10 text-gray-400 text-sm">
+            No Income found.
+          </div>
         )}
       </div>
     </div>
