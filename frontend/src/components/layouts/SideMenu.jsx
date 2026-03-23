@@ -62,7 +62,7 @@ const SideMenu = ({ activeMenu }) => {
   };
 
   return (
-    <div className="w-64 h-[calc(100vh-56px)] bg-white dark:bg-slate-900 border-r border-gray-200/50 dark:border-slate-800 p-5 sticky top-[56px] z-20 transition-colors duration-200">
+    <div className="w-64 h-[calc(100vh-56px)] bg-white dark:bg-slate-900 border-r border-gray-200/50 dark:border-white/5 p-5 sticky top-[56px] z-20 transition-colors duration-200">
       <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
         <div className="relative group cursor-pointer">
           {user?.profileImageUrl ? (
@@ -75,7 +75,7 @@ const SideMenu = ({ activeMenu }) => {
               />
               <button
                 onClick={handleDeleteProfileImage}
-                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-sm"
                 title="Remove profile picture"
               >
                 <LuTrash2 size={12} />
@@ -92,7 +92,7 @@ const SideMenu = ({ activeMenu }) => {
             </div>
           )}
           <div
-            className="absolute bottom-0 right-0 w-7 h-7 bg-primary text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+            className="absolute bottom-0 right-0 w-7 h-7 bg-primary text-white rounded-full flex items-center justify-center cursor-pointer hover:brightness-110 transition-all shadow-sm"
             onClick={() => fileInputRef.current?.click()}
             title="Upload profile picture"
           >

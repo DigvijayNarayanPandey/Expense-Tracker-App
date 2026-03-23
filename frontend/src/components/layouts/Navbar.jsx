@@ -17,7 +17,7 @@ const Navbar = ({ activeMenu }) => {
         {/* Left section: Hamburger + Logo + Title */}
         <div className="flex items-center gap-4">
           <button
-            className="block lg:hidden text-gray-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors p-1 rounded-lg hover:bg-purple-50 dark:hover:bg-slate-800"
+            className="block lg:hidden text-gray-700 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors p-1 rounded-lg hover:bg-teal-50 dark:hover:bg-slate-800"
             onClick={() => {
               setSideMenu(!openSideMenu);
             }}
@@ -63,7 +63,7 @@ const Navbar = ({ activeMenu }) => {
                 <img
                   src={user.profileImageUrl}
                   alt="Profile"
-                  className="w-9 h-9 rounded-full object-cover ring-2 ring-purple-100 dark:ring-purple-900"
+                  className="w-9 h-9 rounded-full object-cover ring-2 ring-teal-100 dark:ring-teal-900"
                 />
               ) : (
                 <CharAvatar
@@ -91,7 +91,7 @@ const Navbar = ({ activeMenu }) => {
 
       {/* Mobile side menu */}
       {openSideMenu && (
-        <div className="fixed top-[54px] left-0 bg-white dark:bg-slate-900 shadow-xl lg:hidden">
+        <div className="fixed top-[54px] left-0 w-64 h-[calc(100vh-54px)] bg-white dark:bg-slate-900 shadow-xl lg:hidden overflow-y-auto z-50">
           <SideMenu activeMenu={activeMenu} />
         </div>
       )}

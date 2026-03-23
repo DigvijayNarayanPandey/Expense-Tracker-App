@@ -81,6 +81,7 @@ const Login = () => {
             label="Password"
             placeholder="Min 8 Characters"
             type="password"
+            autoComplete="current-password"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleLogin(e);

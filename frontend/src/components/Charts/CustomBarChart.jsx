@@ -14,14 +14,14 @@ import {
 const CustomBarChart = ({ data }) => {
   // Function to alternate colours
   const getBarColor = (index) => {
-    return index % 2 === 0 ? "#875cf5" : "#cfbefb";
+    return index % 2 === 0 ? "#0d9488" : "#99f6e4";
   };
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white dark:bg-slate-800 shadow-md rounded-lg p-2 border border-gray-300 dark:border-slate-700">
-          <p className="text-xs font-semibold text-purple-800 dark:text-purple-400 mb-1">
+          <p className="text-xs font-semibold text-teal-800 dark:text-teal-400 mb-1">
             {payload[0].payload.category || payload[0].payload.source}
           </p>
           <p className="text-sm text-gray-600 dark:text-slate-400">

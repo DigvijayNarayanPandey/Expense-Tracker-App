@@ -17,6 +17,11 @@ axiosInstance.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+    // If the body is FormData, let the browser set Content-Type automatically
+    // (it needs to include the multipart boundary — a hardcoded JSON header breaks this)
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
     return config;
   },
   (error) => {

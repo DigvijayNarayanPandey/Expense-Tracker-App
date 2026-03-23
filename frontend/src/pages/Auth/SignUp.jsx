@@ -116,6 +116,7 @@ const SignUp = () => {
                 label="Password"
                 placeholder="Min 8 Characters"
                 type="password"
+                autoComplete="new-password"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     handleSignUp(e);
