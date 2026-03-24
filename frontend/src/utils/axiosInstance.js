@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // Response Interceptor
@@ -39,7 +39,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         // Redirect to login page
-        window.location.herf = "/login";
+        window.location.href = "/login";
       } else if (error.response.status === 500) {
         console.log("Server error. Pleaase try again later.");
       }
@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
       console.log("request timeout. Please try again.");
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

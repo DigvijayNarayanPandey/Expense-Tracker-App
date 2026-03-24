@@ -9,13 +9,16 @@ import UserProvider from "./context/UserContext";
 import ThemeProvider from "./context/ThemeContext";
 import { Toaster } from "react-hot-toast";
 
-const LandingPage = React.lazy(() => import("./pages/Landing Page/LandingPage"));
+const LandingPage = React.lazy(
+  () => import("./pages/Landing Page/LandingPage"),
+);
 const Login = React.lazy(() => import("./pages/Auth/Login"));
 const SignUp = React.lazy(() => import("./pages/Auth/SignUp"));
 const Home = React.lazy(() => import("./pages/Dashboard/Home"));
 const Income = React.lazy(() => import("./pages/Dashboard/Income"));
 const Expense = React.lazy(() => import("./pages/Dashboard/Expense"));
 const Transactions = React.lazy(() => import("./pages/Dashboard/Transactions"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const App = () => {
   return (
@@ -23,7 +26,13 @@ const App = () => {
       <UserProvider>
         <div>
           <Router>
-            <React.Suspense fallback={<div className="flex h-screen w-screen items-center justify-center"><div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div></div>}>
+            <React.Suspense
+              fallback={
+                <div className="flex h-screen w-screen items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-4 border-primary border-t-transparent animate-spin"></div>
+                </div>
+              }
+            >
               <Routes>
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" exact element={<Login />} />
@@ -32,6 +41,7 @@ const App = () => {
                 <Route path="/income" exact element={<Income />} />
                 <Route path="/expense" exact element={<Expense />} />
                 <Route path="/transactions" exact element={<Transactions />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </React.Suspense>
           </Router>

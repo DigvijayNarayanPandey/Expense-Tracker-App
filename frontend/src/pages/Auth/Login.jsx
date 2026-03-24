@@ -6,6 +6,7 @@ import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/UserContext";
+import SeoMeta from "../../components/SeoMeta";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -56,8 +57,15 @@ const Login = () => {
 
   return (
     <AuthLayout>
+      <SeoMeta
+        title="Login | Expense Tracker India"
+        description="Log in to your Expense Tracker account to manage income, expenses, and monthly budgets securely."
+        path="/login"
+      />
       <div className="lg:w-[70%] h-3/4 mid:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black dark:text-white">Welcome Back</h3>
+        <h3 className="text-xl font-semibold text-black dark:text-white">
+          Welcome Back
+        </h3>
         <p className="text-xs text-slate-900 dark:text-slate-400 mt-[5px] mb-6">
           Please enter your details to login in
         </p>

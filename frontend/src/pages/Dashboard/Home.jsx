@@ -13,9 +13,10 @@ import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
 import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
-import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
+import RecentIncomeWithChart from "../../components/Income/RecentIncomeWithChart";
 import RecentIncome from "../../components/Dashboard/RecentIncome";
 import { InfoCardSkeleton } from "../../components/Skeletons/Skeletons";
+import SeoMeta from "../../components/SeoMeta";
 
 const Home = () => {
   useUserAuth();
@@ -46,11 +47,17 @@ const Home = () => {
 
   useEffect(() => {
     fetchDashboardData();
-    return () => { };
+    return () => {};
   }, []);
 
   return (
     <DashboardLayout activeMenu="Dashboard">
+      <SeoMeta
+        title="Dashboard | Expense Tracker"
+        description="Private dashboard for your expense and income analytics."
+        path="/dashboard"
+        robots="noindex, nofollow"
+      />
       <div className="my-5 mx-auto">
         {loading || !dashboardData ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

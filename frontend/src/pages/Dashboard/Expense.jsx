@@ -9,6 +9,7 @@ import DeleteAlert from "../../components/DeleteAlert";
 import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
 import axiosInstance from "../../utils/axiosInstance";
+import SeoMeta from "../../components/SeoMeta";
 
 const Expense = () => {
   useUserAuth();
@@ -136,11 +137,17 @@ const Expense = () => {
   useEffect(() => {
     fetchExpenseDetails();
 
-    return () => { };
+    return () => {};
   }, []);
 
   return (
     <DashboardLayout activeMenu="Expense">
+      <SeoMeta
+        title="Expense Tracker | Expense Tracker"
+        description="Private expense management page for your Expense Tracker account."
+        path="/expense"
+        robots="noindex, nofollow"
+      />
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
           <div className="">

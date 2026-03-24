@@ -8,7 +8,8 @@ import AddIncomeForm from "../../components/Income/AddIncomeForm";
 import IncomeList from "../../components/Income/IncomeList";
 import toast from "react-hot-toast";
 import DeleteAlert from "../../components/DeleteAlert";
-import { useUserAuth } from "../../hooks/useUserAuth"
+import { useUserAuth } from "../../hooks/useUserAuth";
+import SeoMeta from "../../components/SeoMeta";
 
 const Income = () => {
   useUserAuth();
@@ -135,11 +136,17 @@ const Income = () => {
   useEffect(() => {
     fetchIncomeDetails();
 
-    return () => { };
+    return () => {};
   }, []);
 
   return (
     <DashboardLayout activeMenu="Income">
+      <SeoMeta
+        title="Income Tracker | Expense Tracker"
+        description="Private income management page for your Expense Tracker account."
+        path="/income"
+        robots="noindex, nofollow"
+      />
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
           <div className="">

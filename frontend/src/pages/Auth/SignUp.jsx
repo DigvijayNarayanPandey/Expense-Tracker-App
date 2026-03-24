@@ -8,6 +8,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/UserContext";
 import uploadImage from "../../utils/uploadImage";
+import SeoMeta from "../../components/SeoMeta";
 
 const SignUp = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -76,8 +77,15 @@ const SignUp = () => {
 
   return (
     <AuthLayout>
+      <SeoMeta
+        title="Sign Up | Expense Tracker India"
+        description="Create your free Expense Tracker account and start tracking income, expenses, and savings goals in minutes."
+        path="/signup"
+      />
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black dark:text-white">Create an Account</h3>
+        <h3 className="text-xl font-semibold text-black dark:text-white">
+          Create an Account
+        </h3>
         <p className="text-xs text-slate-700 dark:text-slate-400 mt-[5px] mb-6">
           Join us today by entering your details below.
         </p>

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Authenticated app routes should not be indexed
+Disallow: /dashboard
+Disallow: /income
+Disallow: /expense
+Disallow: /transactions
+
+Sitemap: https://expense-tracker-app-digvijay.vercel.app/sitemap.xml

@@ -12,7 +12,11 @@ import {
   LuWalletMinimal,
   LuSearch,
 } from "react-icons/lu";
-import { InfoCardSkeleton, TransactionSkeleton } from "../../components/Skeletons/Skeletons";
+import {
+  InfoCardSkeleton,
+  TransactionSkeleton,
+} from "../../components/Skeletons/Skeletons";
+import SeoMeta from "../../components/SeoMeta";
 
 const Transactions = () => {
   useUserAuth();
@@ -43,27 +47,40 @@ const Transactions = () => {
 
   useEffect(() => {
     fetchAllTransactions();
-    return () => { };
+    return () => {};
   }, []);
 
-  const { filteredTransactions, incomeCount, expenseCount } = React.useMemo(() => {
-    const transactions = transactionData?.transactions || [];
+  const { filteredTransactions, incomeCount, expenseCount } =
+    React.useMemo(() => {
+      const transactions = transactionData?.transactions || [];
 
-    const filtered = transactions.filter((txn) => {
-      const matchesFilter = filter === "all" || txn.type === filter;
-      const label = txn.type === "income" ? txn.source : txn.category;
-      const matchesSearch = label?.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesFilter && matchesSearch;
-    });
+      const filtered = transactions.filter((txn) => {
+        const matchesFilter = filter === "all" || txn.type === filter;
+        const label = txn.type === "income" ? txn.source : txn.category;
+        const matchesSearch = label
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase());
+        return matchesFilter && matchesSearch;
+      });
 
-    const income = transactions.filter((t) => t.type === "income").length;
-    const expense = transactions.filter((t) => t.type === "expense").length;
+      const income = transactions.filter((t) => t.type === "income").length;
+      const expense = transactions.filter((t) => t.type === "expense").length;
 
-    return { filteredTransactions: filtered, incomeCount: income, expenseCount: expense };
-  }, [transactionData, filter, searchQuery]);
+      return {
+        filteredTransactions: filtered,
+        incomeCount: income,
+        expenseCount: expense,
+      };
+    }, [transactionData, filter, searchQuery]);
 
   return (
     <DashboardLayout activeMenu="Transactions">
+      <SeoMeta
+        title="Transactions | Expense Tracker"
+        description="Private transactions page for viewing income and expense history."
+        path="/transactions"
+        robots="noindex, nofollow"
+      />
       <div className="my-5 mx-auto">
         {/* Summary Cards */}
         {loading || !transactionData ? (
@@ -103,7 +120,9 @@ const Transactions = () => {
         {/* Filters & Search */}
         <div className="card">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
-            <h5 className="text-lg font-medium dark:text-white">All Transactions</h5>
+            <h5 className="text-lg font-medium dark:text-white">
+              All Transactions
+            </h5>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full md:w-auto">
               {/* Search */}
@@ -128,10 +147,11 @@ const Transactions = () => {
                   <button
                     key={tab.key}
                     onClick={() => setFilter(tab.key)}
-                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${filter === tab.key
-                      ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm dark:shadow-none"
-                      : "text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
-                      }`}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                      filter === tab.key
+                        ? "bg-white dark:bg-slate-700 text-primary dark:text-white shadow-sm dark:shadow-none"
+                        : "text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200"
+                    }`}
                   >
                     {tab.label}
                   </button>

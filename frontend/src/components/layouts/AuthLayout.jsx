@@ -6,7 +6,9 @@ const AuthLayout = ({ children }) => {
   return (
     <div className="flex">
       <div className="w-screen min-h-screen md:w-[60vw] px-8 sm:px-12 pt-8 pb-12 overflow-y-auto">
-        <h2 className="text-lg font-medium text-black dark:text-white">Expense Tracker</h2>
+        <h2 className="text-lg font-medium text-black dark:text-white">
+          Expense Tracker
+        </h2>
         {children}
       </div>
       <div className="hidden md:block w-[40vw] h-screen bg-stone-100 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative">
@@ -25,6 +27,7 @@ const AuthLayout = ({ children }) => {
 
         <img
           src={CARD_2}
+          alt="Expense tracker dashboard preview"
           className="w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-teal-400/15 rounded-2xl"
         />
       </div>
@@ -43,7 +46,9 @@ const StatsInfoCard = ({ icon, label, value, color }) => {
         {icon}
       </div>
       <div>
-        <h6 className="text-xs text-gray-500 dark:text-slate-400 mb-1">{label}</h6>
+        <h6 className="text-xs text-gray-500 dark:text-slate-400 mb-1">
+          {label}
+        </h6>
         <span className="text-[20px] dark:text-white">₹{value}</span>
       </div>
     </div>
