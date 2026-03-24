@@ -11,11 +11,38 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 const app = express();
 
+const normalizeOrigin = (origin) => origin?.replace(/\/$/, "");
+
 const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:5173",
   "http://127.0.0.1:5173",
-].filter(Boolean);
+  "https://expense-tracker-app-digvijay.vercel.app",
+]
+  .filter(Boolean)
+  .map(normalizeOrigin);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const normalizedOrigin = normalizeOrigin(origin);
+    const isAllowedExact = allowedOrigins.includes(normalizedOrigin);
+    const isAllowedVercelPreview =
+      /^https:\/\/expense-tracker-app.*\.vercel\.app$/.test(normalizedOrigin);
+
+    if (isAllowedExact || isAllowedVercelPreview) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("CORS policy: origin not allowed"));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200,
+};
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -28,18 +55,7 @@ const authLimiter = rateLimit({
 });
 
 // Middleware to handle CORS
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      return callback(new Error("CORS policy: origin not allowed"));
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
