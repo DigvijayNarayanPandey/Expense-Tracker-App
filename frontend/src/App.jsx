@@ -18,6 +18,10 @@ const Home = React.lazy(() => import("./pages/Dashboard/Home"));
 const Income = React.lazy(() => import("./pages/Dashboard/Income"));
 const Expense = React.lazy(() => import("./pages/Dashboard/Expense"));
 const Transactions = React.lazy(() => import("./pages/Dashboard/Transactions"));
+const GuidesHome = React.lazy(() => import("./pages/Guides/GuidesHome"));
+const ExpenseTrackingIndia = React.lazy(
+  () => import("./pages/Guides/ExpenseTrackingIndia"),
+);
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const App = () => {
@@ -41,6 +45,12 @@ const App = () => {
                 <Route path="/income" exact element={<Income />} />
                 <Route path="/expense" exact element={<Expense />} />
                 <Route path="/transactions" exact element={<Transactions />} />
+                <Route path="/guides" exact element={<GuidesHome />} />
+                <Route
+                  path="/guides/expense-tracking-india"
+                  exact
+                  element={<ExpenseTrackingIndia />}
+                />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </React.Suspense>

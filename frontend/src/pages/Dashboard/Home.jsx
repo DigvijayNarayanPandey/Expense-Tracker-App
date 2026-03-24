@@ -53,7 +53,7 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <SeoMeta
-        title="Dashboard | Expense Tracker"
+        title="Expense Tracker"
         description="Private dashboard for your expense and income analytics."
         path="/dashboard"
         robots="noindex, nofollow"

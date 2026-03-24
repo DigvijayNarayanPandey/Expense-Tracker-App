@@ -153,29 +153,59 @@ const testimonials = [
   },
 ];
 
+const faqs = [
+  {
+    q: "Is this expense tracker useful for users across India?",
+    a: "Yes. The app supports rupee-friendly budgeting flows and works for salaried, student, and freelance users across Indian states.",
+  },
+  {
+    q: "Can I export transactions for tax or review purposes?",
+    a: "Yes. You can export your transaction history to Excel for monthly review, accounting support, and personal records.",
+  },
+  {
+    q: "How often should I review my expenses?",
+    a: "A weekly review is ideal. It helps you spot overspending early and adjust before the month ends.",
+  },
+];
+
 // ─────────────────────────────────────────────────────────────────────
 export default function LandingPage() {
   const { user } = useContext(UserContext);
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Expense Tracker",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "INR",
-    },
-    description:
-      "Track income, expenses, and budget performance with a simple expense tracker app for India.",
-    url: "https://expense-tracker-app-digvijay.vercel.app/",
-    creator: {
-      "@type": "Person",
-      name: "Digvijay Narayan Pandey",
-    },
-    inLanguage: "en-IN",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: "Expense Tracker",
+        applicationCategory: "FinanceApplication",
+        operatingSystem: "Web",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "INR",
+        },
+        description:
+          "Track income, expenses, and budget performance with a simple expense tracker app for India.",
+        url: "https://expense-tracker-app-digvijay.vercel.app/",
+        creator: {
+          "@type": "Person",
+          name: "Digvijay Narayan Pandey",
+        },
+        inLanguage: "en-IN",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map((item) => ({
+          "@type": "Question",
+          name: item.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+          },
+        })),
+      },
+    ],
   };
 
   return (
@@ -208,6 +238,14 @@ export default function LandingPage() {
             </li>
             <li>
               <NavLink href="#how">How it works</NavLink>
+            </li>
+            <li>
+              <Link
+                to="/guides"
+                className="text-stone-500 hover:text-stone-800 text-sm font-medium transition-colors duration-150 no-underline"
+              >
+                Guides
+              </Link>
             </li>
           </ul>
 
@@ -520,6 +558,46 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* ══ FAQ ═════════════════════════════════════════════════ */}
+        <section id="faq" className="bg-stone-50 py-20 px-6 sm:px-10">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-10">
+              <SectionLabel center>FAQ</SectionLabel>
+              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Common Questions
+              </h2>
+              <p className="mt-3 text-sm text-stone-500">
+                Quick answers to help you start tracking money better.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {faqs.map((item) => (
+                <article
+                  key={item.q}
+                  className="rounded-2xl border border-stone-200 bg-white p-5"
+                >
+                  <h3 className="text-base font-bold text-stone-900">
+                    {item.q}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-600">
+                    {item.a}
+                  </p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                to="/guides"
+                className="inline-flex rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white no-underline transition hover:bg-teal-800"
+              >
+                Explore More Guides
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ══ HOW IT WORKS ═════════════════════════════════════════ */}
         <section id="how" className="bg-stone-50 py-20 px-6 sm:px-10">
           <div className="max-w-7xl mx-auto">
@@ -739,6 +817,7 @@ export default function LandingPage() {
                     ["#features", "Features"],
                     ["#how", "How it works"],
                     ["#testimonials", "Reviews"],
+                    ["/guides", "Guides"],
                   ].map(([href, label]) => (
                     <a
                       key={label}

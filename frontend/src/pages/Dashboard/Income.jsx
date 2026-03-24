@@ -142,7 +142,7 @@ const Income = () => {
   return (
     <DashboardLayout activeMenu="Income">
       <SeoMeta
-        title="Income Tracker | Expense Tracker"
+        title="Expense Tracker"
         description="Private income management page for your Expense Tracker account."
         path="/income"
         robots="noindex, nofollow"

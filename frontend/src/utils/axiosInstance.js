@@ -3,7 +3,7 @@ import { BASE_URL } from "./apiPaths";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 20000,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -41,11 +41,18 @@ axiosInstance.interceptors.response.use(
         // Redirect to login page
         window.location.href = "/login";
       } else if (error.response.status === 500) {
-        console.log("Server error. Pleaase try again later.");
+        console.log("Server error. Please try again later.");
       }
     } else if (error.code === "ECONNABORTED") {
-      console.log("request timeout. Please try again.");
+      console.log(
+        `Request timeout (${axiosInstance.defaults.timeout}ms): ${error.config?.baseURL || BASE_URL}${error.config?.url || ""}`,
+      );
+    } else if (error.code === "ERR_NETWORK") {
+      console.log(
+        `Network error: unable to reach API at ${error.config?.baseURL || BASE_URL}. Check internet/API server/CORS.`,
+      );
     }
+
     return Promise.reject(error);
   },
 );

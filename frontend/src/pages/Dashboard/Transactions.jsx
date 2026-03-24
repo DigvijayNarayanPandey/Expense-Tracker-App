@@ -76,7 +76,7 @@ const Transactions = () => {
   return (
     <DashboardLayout activeMenu="Transactions">
       <SeoMeta
-        title="Transactions | Expense Tracker"
+        title="Expense Tracker"
         description="Private transactions page for viewing income and expense history."
         path="/transactions"
         robots="noindex, nofollow"
