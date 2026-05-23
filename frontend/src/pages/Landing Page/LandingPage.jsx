@@ -864,17 +864,17 @@ export default function LandingPage() {
                 </h5>
                 <div className="flex flex-col gap-2">
                   {[
-                    ["#", "Privacy Policy"],
-                    ["#", "Terms of Service"],
-                    ["#", "Cookie Policy"],
+                    ["/privacy-policy", "Privacy Policy"],
+                    ["/terms", "Terms of Service"],
+                    ["/about", "About"],
                   ].map(([href, label]) => (
-                    <a
+                    <Link
                       key={label}
-                      href={href}
+                      to={href}
                       className="text-xs text-stone-500 hover:text-white transition-colors no-underline"
                     >
                       {label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>

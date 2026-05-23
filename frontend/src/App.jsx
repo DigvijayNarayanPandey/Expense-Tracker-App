@@ -22,6 +22,9 @@ const GuidesHome = React.lazy(() => import("./pages/Guides/GuidesHome"));
 const ExpenseTrackingIndia = React.lazy(
   () => import("./pages/Guides/ExpenseTrackingIndia"),
 );
+const PrivacyPolicy = React.lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfService = React.lazy(() => import("./pages/TermsOfService"));
+const About = React.lazy(() => import("./pages/About"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const App = () => {
@@ -51,6 +54,9 @@ const App = () => {
                   exact
                   element={<ExpenseTrackingIndia />}
                 />
+                <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
+                <Route path="/terms" exact element={<TermsOfService />} />
+                <Route path="/about" exact element={<About />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </React.Suspense>
