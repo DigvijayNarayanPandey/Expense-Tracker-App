@@ -273,8 +273,6 @@ export default function LandingPage() {
           <div className="pt-28 pb-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             {/* Left */}
             <div>
-              <Tag>Personal Finance Tracker</Tag>
-
               <h1
                 className="mt-5 text-4xl sm:text-5xl xl:text-6xl font-extrabold
                                        leading-[1.1] tracking-tight text-stone-900"
@@ -289,7 +287,7 @@ export default function LandingPage() {
 
               <p className="mt-5 text-base leading-relaxed text-stone-600 max-w-md">
                 Expense Tracker helps you log income, track expenses, and see
-                your financial health through clean, beautiful charts — all in
+                your financial health through clean, beautiful charts all in
                 one place.
               </p>
 
