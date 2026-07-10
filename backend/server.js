@@ -70,6 +70,11 @@ app.use((req, res, next) => {
 
 connectDB();
 
+// Root endpoint
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
+
 app.use("/api/v1", (req, res, next) => {
   res.setHeader("Cache-Control", "private, no-store, max-age=0");
   next();
