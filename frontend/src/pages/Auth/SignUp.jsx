@@ -15,8 +15,8 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -24,21 +24,25 @@ const SignUp = () => {
   // Handle Sign Up Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     let profileImageUrl = "";
 
     if (!fullName) {
       setError("Please enter you name");
+      setLoading(false);
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Please a valid email address");
+      setLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please enter the password");
+      setLoading(false);
       return;
     }
 
@@ -72,6 +76,8 @@ const SignUp = () => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,7 +142,15 @@ const SignUp = () => {
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
           <button type="submit" className="btn-primary">
-            SignUp
+            <div className="flex items-center justify-center gap-2">
+              {!loading && <span className="text-sm font-medium">SignUp</span>}
+              {loading && (
+                <>
+                  <div className="w-4 h-4 bg-primary rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">Signing Up...</span>
+                </>
+              )}
+            </div>
           </button>
           <p className="text-[13px] text-slate-800 dark:text-slate-200 mt-3">
             Already have an account{" "}

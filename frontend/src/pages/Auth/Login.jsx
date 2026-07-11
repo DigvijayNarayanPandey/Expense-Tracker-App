@@ -12,6 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { updateUser } = useContext(UserContext);
 
@@ -32,6 +33,7 @@ const Login = () => {
     }
 
     setError("");
+    setLoading(true);
 
     //Login API call
     try {
@@ -52,6 +54,8 @@ const Login = () => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,8 +102,16 @@ const Login = () => {
           />
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
-          <button type="submit" className="btn-primary">
-            LOGIN
+          <button type="submit" className="btn-primary flex items-center justify-center">
+            <div className="flex items-center gap-2">
+              {!loading && <span className="text-sm font-medium">Login</span>}
+              {loading && (
+                <>
+                  <div className="w-4 h-4 bg-primary rounded-full animate-pulse"></div>
+                  <span className="text-sm font-medium">Logging In...</span>
+                </>
+              )}
+            </div>
           </button>
           <p className="text-[13px] text-slate-800 dark:text-slate-200 mt-3">
             Don't have an account{" "}
