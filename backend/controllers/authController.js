@@ -58,7 +58,6 @@ exports.registerUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error registering User",
-      error: error.message,
     });
   }
 };
@@ -99,7 +98,6 @@ exports.loginUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error logging in",
-      error: error.message,
     });
   }
 };
@@ -118,7 +116,6 @@ exports.getUserInfo = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error fetching user info",
-      error: error.message,
     });
   }
 };
@@ -146,7 +143,6 @@ exports.updateProfileImage = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error updating profile image",
-      error: error.message,
     });
   }
 };
@@ -168,7 +164,6 @@ exports.deleteProfileImage = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error deleting profile image",
-      error: error.message,
     });
   }
 };

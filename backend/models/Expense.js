@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ExpreseSchema = new mongoose.Schema(
+const ExpenseSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -33,4 +33,7 @@ const ExpreseSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Expense", ExpreseSchema);
+// Compound index for efficient per-user date-sorted queries
+ExpenseSchema.index({ userId: 1, date: -1 });
+
+module.exports = mongoose.model("Expense", ExpenseSchema);

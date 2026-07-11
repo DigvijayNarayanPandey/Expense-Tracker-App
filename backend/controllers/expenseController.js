@@ -1,4 +1,3 @@
-// const User = require("../models/User");
 const xlsx = require("xlsx");
 const Expense = require("../models/Expense");
 const mongoose = require("mongoose");
@@ -36,7 +35,7 @@ exports.addExpense = async (req, res) => {
     });
 
     await newExpense.save();
-    res.status(200).json(newExpense);
+    res.status(201).json(newExpense);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -63,14 +62,16 @@ exports.deleteExpense = async (req, res) => {
   }
 
   try {
-    // Also verify the expense belongs to the user
-    const expense = await Expense.findOne({ _id: req.params.id, userId });
-    
+    // Verify ownership and delete in a single query
+    const expense = await Expense.findOneAndDelete({
+      _id: req.params.id,
+      userId,
+    });
+
     if (!expense) {
       return res.status(404).json({ message: "Expense not found or unauthorized" });
     }
-    
-    await Expense.findByIdAndDelete(req.params.id);
+
     res.json({ message: "Expense deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });

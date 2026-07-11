@@ -33,4 +33,7 @@ const IncomeSchema = new mongoose.Schema(
   }
 );
 
+// Compound index for efficient per-user date-sorted queries
+IncomeSchema.index({ userId: 1, date: -1 });
+
 module.exports = mongoose.model("Income", IncomeSchema);

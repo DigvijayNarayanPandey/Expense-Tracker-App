@@ -34,5 +34,7 @@ export const useUserAuth = () => {
     return () => {
       isMounted = false;
     };
+  // updateUser and clearUser are now memoized with useCallback in UserContext,
+  // so they are stable references and won't cause unwanted re-runs.
   }, [updateUser, clearUser, navigate]);
 };

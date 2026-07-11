@@ -28,9 +28,7 @@ const Income = () => {
     setLoading(true);
 
     try {
-      const response = await axiosInstance.get(
-        `${API_PATHS.INCOME.GET_ALL_INCOME}`,
-      );
+      const response = await axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME);
 
       if (response.data) {
         setIncomeData(response.data);
@@ -135,8 +133,6 @@ const Income = () => {
 
   useEffect(() => {
     fetchIncomeDetails();
-
-    return () => {};
   }, []);
 
   return (

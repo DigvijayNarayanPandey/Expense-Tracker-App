@@ -3,7 +3,7 @@ const dns = require("dns");
 
 // Use Google DNS to resolve MongoDB Atlas SRV records
 // (fixes ISP DNS failing to resolve mongodb+srv:// addresses)
-// dns.setServers(["8.8.8.8", "8.8.4.4"]);
+dns.setServers(["8.8.8.8", "8.8.4.4"]);
 
 const connectDB = async () => {
   try {
