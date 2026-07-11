@@ -31,9 +31,7 @@ const Home = () => {
 
     setLoading(true);
     try {
-      const response = await axiosInstance.get(
-        `${API_PATHS.DASHBOARD.GET_DATA}`,
-      );
+      const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
 
       if (response.data) {
         setDashboardData(response.data);
@@ -47,7 +45,6 @@ const Home = () => {
 
   useEffect(() => {
     fetchDashboardData();
-    return () => {};
   }, []);
 
   return (
@@ -103,24 +100,24 @@ const Home = () => {
           />
 
           <ExpenseTransactions
-            transactions={dashboardData?.last30DaysEpenses?.transactions || []}
+            transactions={dashboardData?.last30DaysExpenses?.transactions || []}
             onSeeMore={() => navigate("/expense")}
             loading={loading || !dashboardData}
           />
 
           <Last30DaysExpenses
-            data={dashboardData?.last30DaysEpenses?.transactions || []}
+            data={dashboardData?.last30DaysExpenses?.transactions || []}
           />
 
           <RecentIncomeWithChart
             data={
-              dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []
+              dashboardData?.last30DaysIncome?.transactions?.slice(0, 4) || []
             }
             totalIncome={dashboardData?.totalIncome || 0}
           />
 
           <RecentIncome
-            transactions={dashboardData?.last60DaysIncome?.transactions || []}
+            transactions={dashboardData?.last30DaysIncome?.transactions || []}
             onSeeMore={() => navigate("/income")}
             loading={loading || !dashboardData}
           />

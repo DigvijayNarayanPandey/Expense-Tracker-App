@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
 } from "react-router-dom";
 import UserProvider from "./context/UserContext";
 import ThemeProvider from "./context/ThemeContext";
@@ -42,21 +41,20 @@ const App = () => {
             >
               <Routes>
                 <Route path="/" element={<LandingPage />} />
-                <Route path="/login" exact element={<Login />} />
-                <Route path="/signup" exact element={<SignUp />} />
-                <Route path="/dashboard" exact element={<Home />} />
-                <Route path="/income" exact element={<Income />} />
-                <Route path="/expense" exact element={<Expense />} />
-                <Route path="/transactions" exact element={<Transactions />} />
-                <Route path="/guides" exact element={<GuidesHome />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/dashboard" element={<Home />} />
+                <Route path="/income" element={<Income />} />
+                <Route path="/expense" element={<Expense />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/guides" element={<GuidesHome />} />
                 <Route
                   path="/guides/expense-tracking-india"
-                  exact
                   element={<ExpenseTrackingIndia />}
                 />
-                <Route path="/privacy-policy" exact element={<PrivacyPolicy />} />
-                <Route path="/terms" exact element={<TermsOfService />} />
-                <Route path="/about" exact element={<About />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms" element={<TermsOfService />} />
+                <Route path="/about" element={<About />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </React.Suspense>
@@ -77,15 +75,3 @@ const App = () => {
 };
 
 export default App;
-
-const Root = () => {
-  // Check if token exists in Local Storage
-  const isAuthenticated = !!localStorage.getItem("token");
-
-  // Redirect to dashboard if authenticated, otherwise to Login page
-  return isAuthenticated ? (
-    <Navigate to="/dashboard" />
-  ) : (
-    <Navigate to="/login" />
-  );
-};

@@ -32,7 +32,7 @@ export const SIDE_MENU_DATA = [
     path: "/transactions",
   },
   {
-    id: "06",
+    id: "05",
     label: "Logout",
     icon: LuLogOut,
     path: "logout",

@@ -5,7 +5,7 @@ export const ThemeContext = createContext();
 export default function ThemeProvider({ children }) {
   // Check local storage for theme, default to 'light'
   const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    localStorage.getItem("theme") || "light"
   );
 
   // Apply the 'dark' class to the HTML root directly

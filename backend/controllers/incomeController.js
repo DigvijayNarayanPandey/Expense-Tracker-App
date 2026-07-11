@@ -1,4 +1,3 @@
-// const User = require("../models/User");
 const xlsx = require("xlsx");
 const Income = require("../models/Income");
 const mongoose = require("mongoose");
@@ -36,7 +35,7 @@ exports.addIncome = async (req, res) => {
     });
 
     await newIncome.save();
-    res.status(200).json(newIncome);
+    res.status(201).json(newIncome);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -57,20 +56,22 @@ exports.getAllIncome = async (req, res) => {
 // Delete Income
 exports.deleteIncome = async (req, res) => {
   const userId = req.user.id;
- 
+
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return res.status(400).json({ message: "Invalid ID format" });
   }
 
   try {
-    // Also verify the income belongs to the user
-    const income = await Income.findOne({ _id: req.params.id, userId });
-    
+    // Verify ownership and delete in a single query
+    const income = await Income.findOneAndDelete({
+      _id: req.params.id,
+      userId,
+    });
+
     if (!income) {
       return res.status(404).json({ message: "Income not found or unauthorized" });
     }
-    
-    await Income.findByIdAndDelete(req.params.id);
+
     res.json({ message: "Income deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server Error" });

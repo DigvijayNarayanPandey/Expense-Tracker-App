@@ -47,7 +47,6 @@ const Transactions = () => {
 
   useEffect(() => {
     fetchAllTransactions();
-    return () => {};
   }, []);
 
   const { filteredTransactions, incomeCount, expenseCount } =
