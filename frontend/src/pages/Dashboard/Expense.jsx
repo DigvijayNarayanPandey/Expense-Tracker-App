@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { API_PATHS } from "../../utils/apiPaths";
@@ -17,6 +17,7 @@ const Expense = () => {
 
   const [expenseData, setExpenseData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const isFetchingRef = useRef(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show: false,
     data: null,
@@ -25,8 +26,8 @@ const Expense = () => {
 
   // Get All Expense Details
   const fetchExpenseDetails = async () => {
-    if (loading) return;
-
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
     setLoading(true);
 
     try {
@@ -38,6 +39,7 @@ const Expense = () => {
     } catch (error) {
       console.log("Something went wrong. please try again.", error);
     } finally {
+      isFetchingRef.current = false;
       setLoading(false);
     }
   };

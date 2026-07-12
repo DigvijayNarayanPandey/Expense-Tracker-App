@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { useNavigate } from "react-router-dom";
@@ -26,10 +26,13 @@ const Home = () => {
 
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(false);
+  // useRef guard instead of the loading state prevents the AI save callback
+  // from being silently dropped when a fetch is already in flight.
+  const isFetchingRef = useRef(false);
 
   const fetchDashboardData = async () => {
-    if (loading) return;
-
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
     setLoading(true);
     try {
       const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
@@ -40,6 +43,7 @@ const Home = () => {
     } catch (error) {
       console.log("Something went wrong. Please try again.", error);
     } finally {
+      isFetchingRef.current = false;
       setLoading(false);
     }
   };
