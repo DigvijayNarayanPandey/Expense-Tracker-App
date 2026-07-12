@@ -18,34 +18,10 @@ const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
 
-const normalizeOrigin = (origin) => origin?.replace(/\/$/, "");
-
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-  "https://expense-tracker-app-digvijay.vercel.app",
-]
-  .filter(Boolean)
-  .map(normalizeOrigin);
-
+// In development the Vite proxy handles cross-origin — CORS is only needed
+// for the production frontend. Set CLIENT_URL in .env to your deployed frontend URL.
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    const normalizedOrigin = normalizeOrigin(origin);
-    const isAllowedExact = allowedOrigins.includes(normalizedOrigin);
-    const isAllowedVercelPreview =
-      /^https:\/\/expense-tracker-app.*\.vercel\.app$/.test(normalizedOrigin);
-
-    if (isAllowedExact || isAllowedVercelPreview) {
-      return callback(null, true);
-    }
-
-    return callback(new Error("CORS policy: origin not allowed"));
-  },
+  origin: process.env.CLIENT_URL || false,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   optionsSuccessStatus: 200,
