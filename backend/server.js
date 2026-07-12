@@ -1,4 +1,10 @@
 require("dotenv").config();
+
+// Warn early if GROQ_API_KEY is missing — AI features will fail at runtime
+if (!process.env.GROQ_API_KEY) {
+  console.warn("⚠️  GROQ_API_KEY is missing in .env. AI chat features will not work.");
+}
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -8,6 +14,7 @@ const authRoutes = require("./routes/authRoutes");
 const incomeRoutes = require("./routes/incomeRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const aiRoutes = require("./routes/aiRoutes");
 
 const app = express();
 
@@ -84,6 +91,7 @@ app.use("/api/v1/auth", authLimiter, authRoutes);
 app.use("/api/v1/income", incomeRoutes);
 app.use("/api/v1/expense", expenseRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/ai", aiRoutes);
 
 // Server uploads
 app.use(

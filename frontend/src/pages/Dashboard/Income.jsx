@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import DeleteAlert from "../../components/DeleteAlert";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import SeoMeta from "../../components/SeoMeta";
+import AiChatButton from "../../components/AiChat/AiChatButton";
 
 const Income = () => {
   useUserAuth();
@@ -181,6 +182,12 @@ const Income = () => {
           />
         </Modal>
       </div>
+
+      {/* AI assistant — income page defaults to income */}
+      <AiChatButton
+        pageContext="income"
+        onTransactionAdded={fetchIncomeDetails}
+      />
     </DashboardLayout>
   );
 };

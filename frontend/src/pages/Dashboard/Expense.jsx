@@ -10,6 +10,7 @@ import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
 import axiosInstance from "../../utils/axiosInstance";
 import SeoMeta from "../../components/SeoMeta";
+import AiChatButton from "../../components/AiChat/AiChatButton";
 
 const Expense = () => {
   useUserAuth();
@@ -182,6 +183,12 @@ const Expense = () => {
           />
         </Modal>
       </div>
+
+      {/* AI assistant — expense page defaults to expense */}
+      <AiChatButton
+        pageContext="expense"
+        onTransactionAdded={fetchExpenseDetails}
+      />
     </DashboardLayout>
   );
 };

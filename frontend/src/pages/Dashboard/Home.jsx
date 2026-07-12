@@ -17,6 +17,7 @@ import RecentIncomeWithChart from "../../components/Income/RecentIncomeWithChart
 import RecentIncome from "../../components/Dashboard/RecentIncome";
 import { InfoCardSkeleton } from "../../components/Skeletons/Skeletons";
 import SeoMeta from "../../components/SeoMeta";
+import AiChatButton from "../../components/AiChat/AiChatButton";
 
 const Home = () => {
   useUserAuth();
@@ -123,8 +124,15 @@ const Home = () => {
           />
         </div>
       </div>
+
+      {/* AI assistant — dashboard asks income or expense */}
+      <AiChatButton
+        pageContext="dashboard"
+        onTransactionAdded={fetchDashboardData}
+      />
     </DashboardLayout>
   );
 };
 
 export default Home;
+
