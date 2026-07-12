@@ -51,7 +51,7 @@ const AiChatModal = ({ pageContext, onClose, onTransactionAdded }) => {
       <div
         className="
           w-full h-[70vh]
-          lg:w-[420px] lg:h-[580px] lg:mb-6 lg:mr-6
+          lg:w-[420px] lg:h-[560px] lg:max-h-[calc(100vh-88px)] lg:mb-6 lg:mr-6
           bg-white dark:bg-slate-900
           border border-gray-200 dark:border-white/5
           rounded-t-2xl lg:rounded-2xl

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import IncomeOverview from "../../components/Income/IncomeOverview";
 import axiosInstance from "../../utils/axiosInstance";
@@ -16,6 +16,7 @@ const Income = () => {
   useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const isFetchingRef = useRef(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show: false,
     data: null,
@@ -24,8 +25,8 @@ const Income = () => {
 
   // Get All Income Details
   const fetchIncomeDetails = async () => {
-    if (loading) return;
-
+    if (isFetchingRef.current) return;
+    isFetchingRef.current = true;
     setLoading(true);
 
     try {
@@ -37,6 +38,7 @@ const Income = () => {
     } catch (error) {
       console.log("Something went wrong. please try again.", error);
     } finally {
+      isFetchingRef.current = false;
       setLoading(false);
     }
   };

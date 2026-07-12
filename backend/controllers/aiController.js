@@ -42,8 +42,28 @@ const extractJSON = (text) => {
 };
 
 // ─── Utility: extract human message from Groq response ───────────────────────
-const extractHumanMessage = (text) =>
-  text.replace(/```json\s*[\s\S]*?\s*```/gi, "").trim();
+// Multi-pass cleaner handles all LLM output variations:
+//   1. Fenced ```json ... ``` blocks
+//   2. Raw JSON objects { ... } that weren't wrapped in a code fence
+//   3. "JSON:" prefix lines the LLM sometimes outputs as a label
+//   4. "Confirmation message:" prefix lines
+//   5. Collapse leftover blank lines
+const extractHumanMessage = (text) => {
+  let cleaned = text
+    // Remove fenced ```json ... ``` blocks (greedy matches across newlines)
+    .replace(/```json[\s\S]*?```/gi, "")
+    // Remove any remaining raw JSON object blocks { ... }
+    .replace(/\{[\s\S]*?\}/g, "")
+    // Remove "JSON:" label lines (with optional colon/whitespace variations)
+    .replace(/^JSON:?\s*/gim, "")
+    // Remove "Confirmation message:" prefix lines
+    .replace(/^Confirmation message:?\s*/gim, "")
+    // Collapse 3+ consecutive blank lines into one
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+
+  return cleaned;
+};
 
 // ─── Controller ──────────────────────────────────────────────────────────────
 exports.chat = async (req, res) => {

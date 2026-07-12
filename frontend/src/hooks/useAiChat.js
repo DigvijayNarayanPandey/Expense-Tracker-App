@@ -9,7 +9,7 @@ import {
   newMsgId,
 } from "../utils/aiConstants";
 
-// ─── Reducer ─────────────────────────────────────────────────────────────────
+// Reducer 
 // useReducer over multiple useStates because these 5 values change together.
 // Atomic updates = no intermediate inconsistent states.
 
@@ -62,7 +62,7 @@ function reducer(state, action) {
   }
 }
 
-// ─── Hook ────────────────────────────────────────────────────────────────────
+// Hook 
 
 const useAiChat = ({ pageContext, onTransactionAdded }) => {
   const [state, dispatch] = useReducer(reducer, null, () =>
@@ -77,7 +77,7 @@ const useAiChat = ({ pageContext, onTransactionAdded }) => {
     return () => abortControllerRef.current?.abort();
   }, []);
 
-  // ── Send a message to the AI ──────────────────────────────────────────────
+  // Send a message to the AI
   const sendMessage = useCallback(
     async (text) => {
       const trimmed = text.trim();
@@ -168,7 +168,7 @@ const useAiChat = ({ pageContext, onTransactionAdded }) => {
     [state.messages, state.isLoading, state.isSaving, pageContext]
   );
 
-  // ── Confirm and save the pending transaction ──────────────────────────────
+  // Confirm and save the pending transaction 
   const saveTransaction = useCallback(
     async (txn) => {
       if (!txn) return;
@@ -199,7 +199,7 @@ const useAiChat = ({ pageContext, onTransactionAdded }) => {
         const successMsg = {
           id: newMsgId(),
           role: "assistant",
-          content: `✅ Done! ₹${Number(txn.amount).toLocaleString("en-IN")} ${txn.type} added successfully. Want to add another?`,
+          content: `✅ Done! ₹${Number(txn.amount).toLocaleString("en-GB")} ${txn.type} added successfully. Want to add another?`,
           parsedData: null,
         };
         dispatch({ type: ACTIONS.ADD_AI_MSG, payload: successMsg });

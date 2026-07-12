@@ -1,12 +1,25 @@
 // Controlled input. Enter submits, Shift+Enter adds a newline (future use).
 // Disabled during loading or saving to prevent double-sends.
+// useRef + useEffect refocuses automatically when AI finishes responding —
+// the user never has to click the box again.
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LuSendHorizontal } from "react-icons/lu";
 
 const ChatInput = ({ onSend, isLoading, isSaving }) => {
   const [text, setText] = useState("");
+  const inputRef = useRef(null);
   const isDisabled = isLoading || isSaving;
+
+  // Refocus the input every time isLoading or isSaving transitions to false.
+  // This covers: initial mount, after AI responds, and after save completes.
+  useEffect(() => {
+    if (!isDisabled) {
+      // Small timeout so React has flushed DOM updates before we steal focus
+      const id = setTimeout(() => inputRef.current?.focus(), 50);
+      return () => clearTimeout(id);
+    }
+  }, [isDisabled]);
 
   const handleSubmit = () => {
     if (!text.trim() || isDisabled) return;
@@ -24,6 +37,7 @@ const ChatInput = ({ onSend, isLoading, isSaving }) => {
   return (
     <div className="flex items-center gap-2 p-3 border-t border-gray-100 dark:border-white/5 bg-white dark:bg-slate-900">
       <input
+        ref={inputRef}
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
